@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load my_tags %}
+{% block content %}
+{% include "accounts/sidebar.html"%}
+
+{% block script %}
+  <script src="{% static 'js/remove_wish_item.js' %}"></script>
+{% endblock %}
+
+{% endblock %}

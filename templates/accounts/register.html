@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1> User Registration </h1>
+<form action="" class="form" method="post" >
+    {% csrf_token %}
+<!--    {% for fm in form %}-->
+<!--     {{ fm.label_tag }} {{fm}} {{ fm.errors|striptags }} <br><br>-->
+<!--    {% endfor %}-->
+    <input type="text" name="username" placeholder="Enter Your Name"><br><br>
+    <input type="email" name="email" placeholder="Enter Your Email"><br><br>
+    <input type="password" name="password1" placeholder="Enter Your Password"><br><br>
+    <input type="password" name="password2" placeholder="Enter Your Confirm Password"><br><br>
+
+
+    <input type="submit" value="Submit">
+</form>
+{% endblock %}

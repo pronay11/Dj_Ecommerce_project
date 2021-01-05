@@ -1,0 +1,96 @@
+{% load static %}
+{% load my_tags %}
+<!-- /product --><!-- SECTION -->
+<div class="section">
+  <!-- container -->
+  <div class="container">
+    <!-- row -->
+    <div class="row" >
+      <!-- ASIDE -->
+        <div id="aside" class="col-md-3" >
+
+
+
+          <!-- product -->
+          <div class="card card-body ">
+
+               <h2>Profile</h2><br>
+
+                <h4 class="product-name">
+                  <a href="{% url 'profile' %}">Account</a>
+                </h4>
+                <h4 class="product-name">
+                  <a href="#">WishList</a>
+                </h4>
+                <h4 class="product-name">
+                  <a href="#">Cart</a>
+                </h4>
+
+          <!-- /product -->
+        </div>
+
+          </div>
+      <!-- /ASIDE -->
+
+      <!-- STORE -->
+      <div id="store" class="col-md-9">
+
+        <!-- store products -->
+        <div class="row">
+          {% wish_list_items user.username as wish_items %}
+          {% for item in wish_items.items %}
+          <!-- product -->
+          <div class="col-md-4 col-xs-6">
+            <div class="product" id="wish_{{item.id}}">
+              <button onclick="delete_wish_item({{ item.id }})" class="delete"><i class="fa fa-close"></i></button>
+              <div class="product-img">
+                {% if item.item.featured_image %}
+                <img src="{{ item.item.featured_image.url }}" alt="">
+                {% endif %}
+                <div class="product-label">
+                  <span class="sale">{{ item.item.discount|floatformat:2 }}%</span>
+                  <span class="new">NEW</span>
+                </div>
+              </div>
+              <div class="product-body">
+                <p class="product-category">{{item.item.category}}</p>
+                <h3 class="product-name">
+                  <a href="#">{{item.item.name}}</a>
+                </h3>
+                <h4 class="product-price">{{item.item.new_price}}
+                  <del class="product-old-price">{{item.item.old_price}}</del>
+                </h4>
+                <div class="product-rating">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                </div>
+
+              </div>
+              <form action="{% url 'add-to-cart' %}" method="get">
+                <div class="add-to-cart">
+                <input type="hidden" name="item_id" value="{{ item.pk }}">
+                <button type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                </div>
+              </form>
+            </div>
+
+          </div>
+          <!-- /product -->
+          {% endfor %}
+
+        </div>
+        <!-- /store products -->
+
+      </div>
+      <!-- /STORE -->
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+</div>
+<!-- /SECTION -->
+
+
