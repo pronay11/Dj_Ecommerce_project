@@ -8,6 +8,7 @@ from product.models import CartItem, Item, Category, WishListItem
 from rest_framework.response import Response
 from rest_framework import filters
 import stripe
+from product.models import Cart
 from .serializers import ItemSerializer, CreateItemSerializer, CategorySerializer
 
 
@@ -59,7 +60,7 @@ class CreateCategoryAPI(APIView):
     def post(self, request):
         serializer = CategorySerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save(username="harun")
+            serializer.save(username="request.user")
             return Response({'status': 'ok'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -91,7 +92,7 @@ class CreateStripeSession(APIView):
                     'product_data': {
                         'name': 'T-shirt',
                     },
-                    'unit_amount': 50000,
+                    'unit_amount': 5000,
                 },
                 'quantity': 1,
             }],

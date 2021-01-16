@@ -15,7 +15,7 @@ class UserLoginForm(forms.Form):
 class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
-        exclude = ('user',)
+        exclude = ['user']
         widgets = {
             'user': TextInput(attrs={'class':'input','placeholder':'user'}),
             'photo': FileInput(attrs={'class': 'input', 'placeholder':'photo'}),
@@ -24,19 +24,3 @@ class ProfileForm(forms.ModelForm):
 
 
 
-class TestForm(forms.Form):
-    name = forms.CharField()
-
-
-# class UserUpdateForm(forms.ModelForm):
-#     email = forms.EmailField()
-#
-#     class Meta:
-#         model = User
-#         fields = ['username', 'email']
-
-
-# class ProfileUpdateForm(forms.ModelForm):
-#     class Meta:
-#         model = Profile
-#         fields = ['photo']

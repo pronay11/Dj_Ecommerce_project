@@ -37,29 +37,16 @@ class ItemDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         object = super().get_object()
-
         context['form'] = AddToCartForm(instance=object)
-        # list_com = Comment.objects.filter()
-        # print(list_com)
-        # paginator = Paginator(list_com,3)
-        # print(paginator)
-        # page = self.request.GET.get('page')
-        # print(page)
-        # comment = paginator.get_page(page)
-        # print(comment)
         comments = Comment.objects.filter(product_id=object.id)
+        com_count = comments.aggregate(Count('product'))  # count customer review
+        review_count = comments.aggregate(Avg('rate'))
         paginator = Paginator(comments, 2)
         page_number = self.request.GET.get('page')
         comments = paginator.get_page(page_number)
         context['comments'] = comments
-        # try:
-        #     comment = paginator.page(page)
-        # except PageNotAnInteger:
-        #     comment = paginator.page(1)
-        # except EmptyPage:
-        #     comment = paginator.page(paginator.num_pages)
-        #
-
+        context['comment_count'] = com_count
+        context['review_count'] = review_count
         context['wishlist'] = Item.objects.order_by("id")[:3]
         return context;
 
@@ -88,7 +75,7 @@ class AddToWishView(LoginRequiredMixin, View):
         wish_obj, created = WishList.objects.get_or_create(user=request.user, is_active=True)
         item, created = WishListItem.objects.get_or_create(item=item, wishlist=wish_obj, defaults={'quantity': qty})
 
-        messages.success(request, 'Item added to your wishcart')
+        messages.success(request, 'Item added to your wish cart')
         return redirect('home')
 
 

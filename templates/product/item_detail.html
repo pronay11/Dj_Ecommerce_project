@@ -62,14 +62,14 @@
                 <div class="product-details">
                     <h2 class="product-name">{{ object.name }}</h2>
                     <div>
-                        <div class="product-rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                            <i class="fa fa-star-o"></i>
+                        <div class="review-rating">
+                            <i class="fa fa-star{% if review_count.rate__avg < 1 %}-o empty{% endif %}"></i>
+                            <i class="fa fa-star{% if review_count.rate__avg < 2 %}-o empty{% endif %}"></i>
+                            <i class="fa fa-star{% if review_count.rate__avg < 3 %}-o empty{% endif %}"></i>
+                            <i class="fa fa-star{% if review_count.rate__avg < 4 %}-o empty{% endif %}"></i>
+                            <i class="fa fa-star{% if review_count.rate__avg < 5 %}-o empty{% endif %}"></i>
                         </div>
-                       <a class="review-link" href="#"> {{comment_count.product__count}} Review(s) | Add your review</a>
+                       <a class="review-link" data-toggle="tab" href="#tab3"> {{comment_count.product__count}} Review(s) | Add your review</a>
                     </div>
                     <div>
                         <h3 class="product-price">${{ object.new_price }}
@@ -148,7 +148,7 @@
                     <!-- product tab nav -->
                     <ul class="tab-nav">
                         <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
-                        <li><a data-toggle="tab" href="#tab3">Reviews ({{comments.count}})</a></li>
+                        <li><a data-toggle="tab" href="#tab3">Reviews ({{comment_count.product__count}})</a></li>
                     </ul>
                     <!-- /product tab nav -->
 
@@ -221,40 +221,7 @@
 					</ul>
 				</nav>
 
-<!--                                        <ul class="reviews-pagination">-->
-<!--                                            <li class="active">1</li>-->
-<!--                                            <li><a href="#">2</a></li>-->
-<!--                                            <li><a href="#">3</a></li>-->
-<!--                                            <li><a href="#">4</a></li>-->
-<!--                                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>-->
-<!--                                            {% if page_obj.has_other_pages  %}-->
-<!--                                          <ul class = "pagination">-->
-<!--                                              {% if page_obj.has_previous %}-->
-<!--                                                    <li><a href="?page={{ page_obj.previous_page_number }}">Previous</a></li>-->
-<!--                                                {% else %}-->
 
-<!--                                                    <li class="disables"><span><<</span></li>-->
-<!--                                                {% endif %}-->
-
-<!--                                                {% for i in page_obj.paginator.page_range %}-->
-<!--                                                   {% if page_obj.number == i %}-->
-<!--                                              <li class="activate"><span>{{i}}<span class="sr-only">(current)</span></span></li>-->
-<!--                                                {% else %}-->
-<!--                                                    <li><a href="?page={{i}}">{{i}}</a></li>-->
-<!--                                                {% endif %}-->
-<!--                                              {% endfor %}-->
-<!--                                              {% if page_obj.has_next %}-->
-<!--                                              <li><a href="?page{{page_obj.next_page_number}}"> >> </a>/li>-->
-<!--                                                  {% else %}-->
-<!--                                                    <li class = "disabled"><span> >> </span></li>-->
-<!--                                                  {% endif %}-->
-<!--                                          </ul>-->
-<!--                                                 {% endif %}-->
-
-<!--                                            </div>-->
-<!--                                              <div id="slick-nav-1" class="products-slick-nav"></div>-->
-<!--                                            </div>-->
-<!--                                        </ul>-->
                                     </div>
                                 </div>
 
